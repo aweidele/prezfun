@@ -229,11 +229,15 @@
     $a = 0;
     $list = [];
     $d = [];
+    $s = [];
     foreach($prez as $key => $p) {
       if($p["start"] <= $i && $p["died"] >= $i) {
       //if($p["start"] >= $i && $p["died"] <= $i) {
         $a++;
         $list[] = $p["name"];
+        if($p["start"] == $i) {
+          $s[] = $p["name"];
+        }
         if($p["died"] == $i) {
           $d[] = $p["name"];
         }
@@ -242,7 +246,8 @@
     $years[$i] = [
       "alive" => $a,
       "prez" => $list,
-      "died" => $d
+      "died" => $d,
+      "start" => $s
     ];
   }
 ?>
@@ -260,6 +265,7 @@
     <?php foreach($years as $key => $year) { ?>
       <tr>
         <td><?= $key ?></td>
+        <td><?= implode(", ",$year["start"]) ?></td>
         <td><?= $year["alive"] ?></td>
         <td><?= implode(", ",$year["prez"]) ?></td>
         <td><?= implode(", ",$year["died"]) ?></td>
